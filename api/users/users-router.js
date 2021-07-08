@@ -25,12 +25,12 @@ router.get('/:id', validateUserId, (req, res) => {
 router.post('/', validateUser, validatePost, (req, res, next) => {
   User.insert({ name: req.name })
     .then(newUser => {
-      res.status(201).json(newUser);
+      res.status(201).json(newUser)
     })
     .catch(next)
 });
 
-router.put('/:id', validateUserId, validateUser, (req, res) => {
+router.put('/:id', validateUserId, validateUser, (req, res, next) => {
   User.update(req.params.id, { name: req.name })
   .then(() => {
     return User.getById(req.params.id);
@@ -59,7 +59,7 @@ router.get('/:id/posts', validateUserId, async (req, res, next) => {
   }
 });
 
-router.post('/:id/posts', validateUserId, validatePost, async (req, res) => {
+router.post('/:id/posts', validateUserId, validatePost, async (req, res, next) => {
   try{
     const result = await Post.insert({
       user_id: req.params.id,

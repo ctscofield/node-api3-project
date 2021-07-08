@@ -1,7 +1,7 @@
 const User = require("./../users/users-model");
 
 function logger(req, res, next) {
-  const timeStamp = new Date().toLocaleString();
+  const timestamp = new Date().toLocaleString();
   const method = req.method;
   const url = req.originalUrl;
   console.log(`[${timestamp}] ${method} to ${url}`);
@@ -12,7 +12,7 @@ async function validateUserId(req, res, next) {
   try {
     const user = await User.getById(req.params.id);
     if (!user) {
-      res.status(404).json({message: "no such user"});
+      next({status: 404, message: "user not found"});
     } else {
       req.user = user;
       next()
