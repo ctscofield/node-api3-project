@@ -6,6 +6,8 @@ const server = express();
 server.use(express.json());
 server.use(logger);
 
+server.use("/api/users", usersRouter);
+
 // global middlewares and the user's router need to be connected here
 
 server.get('/', (req, res) => {
